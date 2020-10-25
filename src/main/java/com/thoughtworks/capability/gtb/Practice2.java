@@ -1,5 +1,6 @@
 package com.thoughtworks.capability.gtb;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 /**
@@ -9,8 +10,14 @@ import java.time.LocalDate;
  * @create 2020-05-15_17:20
  */
 public class Practice2 {
-
   public static LocalDate getNextWorkDate(LocalDate date) {
-    return null;
+    DayOfWeek dayOfWeek = date.getDayOfWeek();
+    if (dayOfWeek == DayOfWeek.FRIDAY) {
+      return date.plusDays(3);
+    } else if (dayOfWeek == DayOfWeek.SATURDAY) {
+      return date.plusDays(2);
+    } else {
+      return date.plusDays(1);
+    }
   }
 }

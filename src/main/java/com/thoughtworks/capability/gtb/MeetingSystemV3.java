@@ -32,10 +32,11 @@ public class MeetingSystemV3 {
     LocalDateTime beijingTime = londonTime.withZoneSameInstant(ZoneId.of("Asia/Shanghai")).toLocalDateTime();
     LocalDateTime now = LocalDateTime.now();
     if (now.isAfter(beijingTime)) {
-      Period period = Period.between(beijingTime.toLocalDate(), now.toLocalDate());
-      LocalDateTime newMeetingTime = meetingTime.plus(period);
-      ZonedDateTime chicagoTime = newMeetingTime.atZone(ZoneId.of("Asia/Shanghai"))
-              .withZoneSameInstant(ZoneId.of("America/Chicago"));
+      Period period = Period.ofDays(1);
+      LocalDateTime tomorrow = now.plus(period);
+      int dayOfYear = tomorrow.getDayOfYear();
+      ZonedDateTime nextMeetingTime = beijingTime.withDayOfYear(dayOfYear).atZone(ZoneId.of("Asia/Shanghai"));
+      ZonedDateTime chicagoTime = nextMeetingTime.withZoneSameInstant(ZoneId.of("America/Chicago"));
       // 格式化新会议时间
       String showTimeStr = formatter.format(chicagoTime);
       System.out.println(showTimeStr);
